@@ -19,6 +19,8 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
+		<maven-release-plugin-version>3.0.0-M7</maven-release-plugin-version>
+		<maven-deploy-plugin-version>2.8.2</maven-deploy-plugin-version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -33,11 +35,59 @@
 		</dependency>
 	</dependencies>
 
+	<distributionManagement>
+		<repository>
+			<id>maven-release-test</id>
+			<name>GitHub maven-release-test Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/ahmmad2244/mult-module</url>
+		</repository>
+	</distributionManagement>
+	<scm>
+		<connection>scm:git:https://github.com/ahmmad2244/mult-module.git</connection>
+		<developerConnection>scm:git:https://github.com/ahmmad2244/mult-module.git</developerConnection>
+		<url>https://github.com/ahmmad2244/mult-module</url>
+		<tag>head</tag>
+	</scm>
+
+
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>${maven-release-plugin-version}</version>
+				<configuration>
+					<pomFileName>scala-starter-parent/pom.xml</pomFileName>
+				</configuration>
+				<executions>
+					<execution>
+						<id>default</id>
+						<goals>
+							<goal>perform</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Maven deploy plugin-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>${maven-deploy-plugin-version}</version>
+				<executions>
+					<execution>
+						<id>default-deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
